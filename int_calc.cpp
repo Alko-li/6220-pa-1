@@ -33,8 +33,7 @@ int main(int argc, char *argv[]) {
     t2 = MPI_Wtime();
 
     if (rank == 0) {
-        printf("Global sum: %.12f\n", global_sum);
-        printf("Time elapsed: %f\n", t2 - t1);
+        printf("%.12f, %f\n", global_sum, t2 - t1);
     }
     // finalize MPI
     MPI_Finalize();
