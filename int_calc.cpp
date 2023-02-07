@@ -3,6 +3,8 @@
 #include <cstdlib>
 
 int main(int argc, char *argv[]) {
+    int n = atoi(argv[1]);
+    double global_sum;
     // set up MPI
     MPI_Init(&argc, &argv);
 
@@ -12,11 +14,8 @@ int main(int argc, char *argv[]) {
     MPI_Comm_size(comm, &p);
     MPI_Comm_rank(comm, &rank);
     /* code */
-    int n = atoi(argv[1]);
-    double t1, t2;
-    double global_sum;
 
-    t1 = MPI_Wtime();
+    double t1 = MPI_Wtime();
 
     //Local computation of sums
     double h = 1.0 / n;
@@ -30,7 +29,7 @@ int main(int argc, char *argv[]) {
     MPI_Reduce(&local_sum, &global_sum, 1, MPI_DOUBLE, MPI_SUM, 0,
              MPI_COMM_WORLD);
 
-    t2 = MPI_Wtime();
+    double t2 = MPI_Wtime();
 
     if (rank == 0) {
         printf("%.12f, %f\n", global_sum, t2 - t1);
